@@ -26,10 +26,17 @@
             document.querySelector("#resetAlert").innerHTML = resetAlert;
         }
 
+        if (dashGuesses.indexOf("_") >= 0 && newGame === false) {
+            wins++
+            reset();
+        }
+
         if (randomWord.indexOf(lastKey) >= 0 && userInput.indexOf(lastKey) === -1 && lives > 0) {
             userInput.push(lastKey);
-            replaceElements();
             getAllIndexes(randomWord, lastKey);
+            getAllIndexes(randomWord, " ");
+            console.log("Removing Spaces");
+            console.log(dashGuesses.indexOf("_"));
             writeStats();
             console.log("Great Guess! Adding " + (String.fromCharCode(event.keyCode).toLowerCase()) + "!");
         } else if (userInput.indexOf(lastKey) >= 0) {
@@ -46,18 +53,12 @@
         } else if (dashGuesses.indexOf("_" === -1)) {
             //if none of the conditions above meet the user is a winner!
             wins++
+            reset();
         }
     }
 
-    //Begin Logic to replace dash
-    function replaceElements() {
 
-        // Matches the index of the last element pushed to userInputs. 
-        // var start_index = randomWord.indexOf(userInput[userInput.length - 1]);
-        // var number_of_elements_to_remove = 1;
-        // var removed_elements = dashGuesses.splice(start_index, number_of_elements_to_remove, userInput[userInput.length - 1]);
-        // console.log(removed_elements);
-    }
+
     // Here we create the HTML that will be injected into our div and displayed on the page.
     function writeStats() {
         var html = "<p id=dashes>" + dashGuesses.join("") + "</p>" +
@@ -90,10 +91,11 @@
         writeStats();
     }
 
+    // Initiates a new game by generating a new word and emptying out all index positions for underscore (_)
     function randomWordChoice() {
         randomWord = options[Math.floor(Math.random() * options.length)];
         lives = randomWord.length + 1;
-
+        //Empties the previous user input and dashed guess arrays
         userInput = [];
         dashGuesses = [];
         newGame = true;
@@ -103,23 +105,34 @@
         }
     }
 
+    //Function to rset H1 alert message when user losses.
     function resetAlert() {
         resetAlert = "";
         document.querySelector("#resetAlert").innerHTML = resetAlert;
     }
 
+    //Begin Logic to replace dash
     function getAllIndexes(arr, val) {
         var indexes = [];
         i = -1;
         while ((i = arr.indexOf(val, i + 1)) != -1) {
             indexes.push(i);
+            // currentI equals the current index in the word that will replace _ for the correct guessed letter.
             var currentI = i;
-            // var start_index = randomWord.indexOf(userInput[userInput.length - 1]);
-            start_index = currentI;
+            var start_index = currentI;
             var number_of_elements_to_remove = 1;
-            var removed_elements = dashGuesses.splice(start_index, number_of_elements_to_remove, userInput[userInput.length - 1]);
+            var replacementElement = userInput[userInput.length - 1]
+            if (val === " ") {
+                replacementElement = " ";
+            }
+            // 1st element = Start of the index 2nd element = how many elements to remove, 3rd element = element to replace
+            var removed_elements = dashGuesses.splice(start_index, number_of_elements_to_remove, replacementElement);
             console.log("removed index " + removed_elements.indexOf() + " for " + val);
-
+        }
+        if ((dashGuesses.indexOf("_")) < 0) {
+            wins++
+            reset();
+            console.log("loop determined a winner!");
         }
         return indexes;
     }
