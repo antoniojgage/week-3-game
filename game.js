@@ -49,30 +49,6 @@
         }
     }
 
-
-    /* Removing for a second to check logic above.
-            //If user input is contained in random word & lives > 0, replace user input with index of array
-            if (randomWord.indexOf(userInput[userInput.length - 1]) > -1 && lives > 0) {
-                replaceElements();
-                writeStats();
-                console.log("last entry: " + userInput[userInput.length - 1] + " rewriting stats!");
-            } else if (lives > 0) {
-                //user inputs incorrect answer and losses a life.
-                lives = (lives - 1);
-                writeStats();
-                console.log("last entry: " + userInput[userInput.length - 1] + " is NOT in the mystery word!");
-                console.log("Lost a life! Current Count " + lives);
-            } else if (dashGuesses.indexOf("_") === 0 && (lives < 1)) {
-                //Checks if underscore (_) exists in the dashGuesses array, if it does and the user is out of lives...reset the game and add 1 to losses.
-                losses++;
-                reset();
-            } else {
-                //if none of the conditions above meet the user is a winner!
-                wins++;
-            }
-        } */
-
-
     //Begin Logic to replace dash
     function replaceElements() {
 
@@ -84,7 +60,7 @@
     }
     // Here we create the HTML that will be injected into our div and displayed on the page.
     function writeStats() {
-        var html = "<p id=dashes>" + dashGuesses + "</p>" +
+        var html = "<p id=dashes>" + dashGuesses.join("") + "</p>" +
             "<p>The word you're guessing is " +
             randomWord.length + " letters long.</p>" +
             "<p> Previous Inputs: " + userInput + "</p>";
@@ -121,6 +97,7 @@
         userInput = [];
         dashGuesses = [];
         newGame = true;
+
         for (i = 0; i < randomWord.length; i++) {
             dashGuesses.push("_");
         }
@@ -133,13 +110,16 @@
 
     function getAllIndexes(arr, val) {
         var indexes = [];
-            i = -1;
+        i = -1;
         while ((i = arr.indexOf(val, i + 1)) != -1) {
             indexes.push(i);
-            var start_index = randomWord.indexOf(userInput[userInput.length - 1]);
+            var currentI = i;
+            // var start_index = randomWord.indexOf(userInput[userInput.length - 1]);
+            start_index = currentI;
             var number_of_elements_to_remove = 1;
             var removed_elements = dashGuesses.splice(start_index, number_of_elements_to_remove, userInput[userInput.length - 1]);
-            console.log(removed_elements);
+            console.log("removed index " + removed_elements.indexOf() + " for " + val);
+
         }
         return indexes;
     }
