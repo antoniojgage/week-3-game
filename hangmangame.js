@@ -26,11 +26,6 @@
             document.querySelector("#resetAlert").innerHTML = resetAlert;
         }
 
-        if (dashGuesses.indexOf("_") >= 0 && newGame === false) {
-            wins++
-            reset();
-        }
-
         if (randomWord.indexOf(lastKey) >= 0 && userInput.indexOf(lastKey) === -1 && lives > 0) {
             userInput.push(lastKey);
             getAllIndexes(randomWord, lastKey);
