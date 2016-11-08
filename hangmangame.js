@@ -1,6 +1,6 @@
     // set array of random words
-    // var options = ["bird", "batman", "superman", "green arrow"];
-    var options = ["green arrow"]; /* For testing */
+    var options = ["bird", "batman", "superman", "green arrow"];
+    // var options = ["green arrow"]; /* For testing */
 
     var wins = 0;
 
