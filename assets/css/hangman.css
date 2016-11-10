@@ -1,0 +1,44 @@
+.profile-img {
+    width: 30%;
+    height: 30%;
+}
+
+.quotes {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.portfolio-img {
+    width: 30%;
+    height: 30%;
+}
+
+.center {
+    text-align: center;
+}
+
+.title {
+    font-size: 4em;
+}
+
+.hangman {
+    vertical-align: middle;
+    color: white;
+    font-family: 'Bangers', cursive;
+}
+
+p{
+	font-size: 2em;
+}
+
+body {
+    background-color: black;
+}
+
+html {
+    
+}
+
+#dashes {
+	letter-spacing: 1em;
+}
