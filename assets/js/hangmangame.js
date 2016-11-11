@@ -1,6 +1,8 @@
     // set array of random words
     var options = ["thor", "batman", "superman", "green arrow", "wolverine", "spider man", "captain america", "martian manhunter", "flash", "robin", "daredevil"];
-    var clues = ["Drop Da Hamma!", "Out of the night that covers me", "Is it a bird? Maybe a plane?", "Not the Lantern but the...", "Healing Factor +1", "I can defeat the entire justice leage alone...", "I can defeat the entire justice League Alone", "Little time travel before lunch?", "Sidekick Extrodinare", "blind as a bat, but not a bat."]
+    var clues = ["Drop Da Hamma!", "Out of the night that covers me", "Is it a bird? Maybe a plane?", "Not the Lantern but the...", "Healing Factor +1", "I leave a mark on walls...sorry to the maid", "Motivational Speaker", "I can defeat the entire justice League Alone", "Little time travel before lunch?", "Sidekick Extrodinare", "blind as a bat, but not a bat."]
+    var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
     var wins = 0;
 
     var losses = 0
@@ -8,15 +10,18 @@
     var dashGuesses = [];
     var resetAlert;
     var winAudio = new Audio('assets/audio/kids.mp3');
-
-
+    createButtons();
     randomWordChoice();
     console.log(randomWord);
     console.log(dashGuesses);
 
     document.onkeyup = function(event) {
         // Saves user input into the array userInput (lowercase)
-        var lastKey = String.fromCharCode(event.keyCode).toLowerCase();
+        if (event.keyCode) {
+            var lastKey = String.fromCharCode(event.keyCode).toLowerCase();
+        } else {
+            var lastKey = $(this).data('letter').toLowerCase();
+        }
         if (/[a-zA-Z0-9-_]/.test(lastKey)) { //if keycode in alphabet
             //if match, replace underscore w/matching letter
             console.log("a-z,A-Z,0-9,-_");
@@ -98,9 +103,10 @@
 
         r = Math.floor(Math.random() * options.length);
         // randomWord = options[Math.floor(Math.random() * options.length)];
+
         randomWord = options[r];
         randomClue = clues[r];
-        console.log("random clue is: " + randomClue);
+        console.log("random clue is: " + randomClue + " Index of R is = "+ r + " Random Word = " + randomWord);
         lives = randomWord.length + 1;
         //Empties the previous user input and dashed guess arrays
         userInput = [];
@@ -155,7 +161,19 @@
     });
 
 
+    function createButtons() {
+        for (i = 0; i < letters.length; i++) {
+            var letterBtn = $("<button>");
+            letterBtn.html("<h1>" + letters[i] + "</h1>")
+            letterBtn.addClass("letter-button", "letter", "letter-button-color");
+            letterBtn.attr("data-letter", letters[i]);
+            // console.log(letters[i]);
 
-    // var indexes = getAllIndexes(randomWord, lastKey);
+            $("#buttons").append(letterBtn);
+        }
+    }
+
+    $('.letter-button').click(document.onkeyup)
+        // var indexes = getAllIndexes(randomWord, lastKey);
 
     writeStats();

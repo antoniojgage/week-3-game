@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <!-- Boostrap link CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- End boostrap CDN -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- link to the jQuery Library -->
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/hangman.css" rel="stylesheet">
+    <!-- Including superhero font! -->
+    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Hangman!</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="center hangman">Superhero Hangman!</h1>
+        <div class="row">
+            <div class="col-lg-6 center hangman">
+                <img src="assets/images/comiccharcters.gif" alt="AJG">
+            </div>
+            <div class="col-lg-6 center hangman">
+                <div class="row">
+                    <p>Rules: To begin, type a letter. Good luck!</p>
+                </div>
+                <div id="resetAlert">
+                </div>
+                <div id="hangman">
+                </div>
+                <div id="gameInfo">
+                </div>
+                <div id="lastGuess">
+                </div>
+                <div id="buttons"></div>
+                <button type="button" class="btn btn-primary" id="resetButton">New Word!</button>
+            </div>
+            <div>Release 2.1</div>
+        </div>
+    </div>
+    </div>
+    <script src="assets/js/hangmangame.js"></script>
+</body>
+
+</html>
