@@ -45,6 +45,10 @@ html {}
     letter-spacing: 1em;
 }
 
+#supagif{
+    max-height:260px;
+}
+
 @media (max-width: 768px) {
     .btn {
         font-size: 11px;
@@ -72,3 +76,5 @@ html {}
         font-size: 18px;
     }
 }
+
+
