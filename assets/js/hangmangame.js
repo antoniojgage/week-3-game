@@ -168,9 +168,9 @@ window.onload = function() {
     //function that writes the alphabet and creates buttons elements in html
     function createButtons() {
         for (i = 0; i < letters.length; i++) {
-            var letterBtn = $("<button>");
+            var letterBtn = $("<button class='btn-primary'>");
             letterBtn.html("<h1>" + letters[i] + "</h1>")
-            letterBtn.addClass(".btn-primary","letter-button", "letter", "letter-button-color");
+            letterBtn.addClass("letter-button", "letter", "letter-button-color");
             letterBtn.attr("data-letter", letters[i]);
             // console.log(letters[i]);
 
