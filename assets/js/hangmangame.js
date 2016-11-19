@@ -170,7 +170,7 @@ window.onload = function() {
         for (i = 0; i < letters.length; i++) {
             var letterBtn = $("<button>");
             letterBtn.html("<h1>" + letters[i] + "</h1>")
-            letterBtn.addClass("letter-button", "letter", "letter-button-color");
+            letterBtn.addClass(".btn-primary","letter-button", "letter", "letter-button-color");
             letterBtn.attr("data-letter", letters[i]);
             // console.log(letters[i]);
 
