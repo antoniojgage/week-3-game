@@ -1,37 +1,45 @@
-window.onload = function() {
+window.onload = function () {
     // set array of random words
-    var options = ["thor", "batman", "superman", "green arrow", "wolverine", "spider man", "captain america", "martian manhunter", "flash", "robin", "daredevil"];
-    var clues = ["Drop Da Hamma!", "Out of the night that covers me", "Is it a bird? Maybe a plane?", "Not the Lantern but the...", "Healing Factor +1", "I leave a mark on walls...sorry to the maid", "Motivational Speaker", "I can defeat the entire justice League Alone", "Little time travel before lunch?", "Sidekick Extrodinare", "blind as a bat, but not a bat."]
-    var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    let options = ["thor", "batman", "superman", "green arrow", "wolverine", "spider man", "captain america", "martian manhunter", "flash", "robin", "daredevil"];
+    let clues = ["Drop Da Hamma!", "Out of the night that covers me", "Is it a bird? Maybe a plane?", "Not the Lantern but the...", "Healing Factor +1", "I leave a mark on walls...sorry to the maid", "Motivational Speaker", "I can defeat the entire justice League Alone", "Little time travel before lunch?", "Sidekick Extrodinare", "blind as a bat, but not a bat."]
+    let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-    var wins = 0;
+    let wins = 0;
 
-    var losses = 0
-    var userInput = [];
-    var dashGuesses = [];
-    var resetAlert;
-    var winAudio = new Audio('assets/audio/kids.mp3');
+    let losses = 0
+    let userInput = [];
+    let dashGuesses = [];
+    // let resetAlert;
+    let winAudio = new Audio('assets/audio/kids.mp3');
     createButtons();
     randomWordChoice();
     console.log(randomWord);
     console.log(dashGuesses);
 
-    document.onkeyup = function(event) {
+    document.onkeyup = function (event) {
+        // console.log("event = ", event);
         // Saves user input into the array userInput (lowercase)
+        let lastKey;
         if (event.keyCode) {
-            var lastKey = String.fromCharCode(event.keyCode).toLowerCase();
+            // console.log("last key getting set")
+            lastKey = String.fromCharCode(event.keyCode).toLowerCase();
         } else {
-            //applies the last button push inside the button "letter" to the variable last key
-            var lastKey = $(this).data('letter').toLowerCase();
-            console.log("button push was " + lastKey)
-            console.log("Current user Input = " + userInput)
+            // console.log(this)
+            //applies the last button push inside the button "letter" to the letiable last key
+            //vanilla JS
+            lastKey = this.getAttribute("data-letter").toLowerCase();
+            //Jquery way
+            // let lastKey = document.querySelectorAll('[data="letter"]');
+            // let lastKey = $(this).data('letter').toLowerCase();
+            // console.log("button push was " + lastKey)
+            // console.log("Current user Input = " + userInput)
         }
         if (/[a-zA-Z0-9-_]/.test(lastKey)) { //if keycode in alphabet
             //if match, replace underscore w/matching letter
 
             //performs a check to see if this is a new game, if so...delete the previous win/loss message
             if (newGame === true) {
-                console.log("Initiated new Game! " + newGame)
+                // console.log("Initiated new Game! " + newGame)
                 resetAlert = "";
                 document.querySelector("#resetAlert").innerHTML = resetAlert;
             }
@@ -62,7 +70,8 @@ window.onload = function() {
             } else if (dashGuesses.indexOf("_" === -1)) {
                 //if none of the conditions above meet the user is a winner!
                 winAudio.play();
-                $("#lastGuess").html("Last word choice was: " + randomWord + "</h1>");
+                document.querySelector("#lastGuess").innerHTML = "<h1>Last word choice was: " + randomWord + "</h1>";
+                // $("#lastGuess").html("<h1>Last word choice was: " + randomWord + "</h1>");
                 wins++
                 reset();
             }
@@ -72,13 +81,13 @@ window.onload = function() {
 
     // Function to write all stats on the page
     function writeStats() {
-        var html = "<p id=dashes>" + dashGuesses.join("") + "</p>" +
+        let html = "<p id=dashes>" + dashGuesses.join("") + "</p>" +
             "<p>The word you're guessing is " +
             randomWord.length + " letters long.</p>" +
             "<p> Previous Inputs: " + userInput + "</p>" +
             "<p> Clue: " + randomClue + "</p>";
         // Write Wins, Lossees & Previous user input
-        var scoreInfo = "<p>Wins: " + wins + "</p>" +
+        let scoreInfo = "<p>Wins: " + wins + "</p>" +
             "<p>Losses " + losses + "</p>" +
             "<p>Lives: " + lives + "</p>";
         document.querySelector("#gameInfo").innerHTML = scoreInfo;
@@ -129,20 +138,22 @@ window.onload = function() {
 
     //Begin Logic to replace dash
     function getAllIndexes(arr, val) {
-        var indexes = [];
+        console.log("val = ", val)
+        let indexes = [];
         i = -1;
         while ((i = arr.indexOf(val, i + 1)) != -1) {
+            console.log(i);
             indexes.push(i);
             // currentI equals the current index in the word that will replace _ for the correct guessed letter.
-            var currentI = i;
-            var start_index = currentI;
-            var number_of_elements_to_remove = 1;
-            var replacementElement = userInput[userInput.length - 1]
+            let currentI = i;
+            let start_index = currentI;
+            let number_of_elements_to_remove = 1;
+            let replacementElement = userInput[userInput.length - 1]
             if (val === " ") {
                 replacementElement = " ";
             }
             // 1st element = Start of the index 2nd element = how many elements to remove, 3rd element = element to replace
-            var removed_elements = dashGuesses.splice(start_index, number_of_elements_to_remove, replacementElement);
+            let removed_elements = dashGuesses.splice(start_index, number_of_elements_to_remove, replacementElement);
             console.log("removed index " + removed_elements.indexOf() + " for " + val);
         }
         //checks if the user is a winner at the time of the guess, if so perform win actions.
@@ -157,7 +168,7 @@ window.onload = function() {
     }
 
     //Reset button that resets the game and chooses a new word
-    $("#resetButton").on("click", function() {
+    $("#resetButton").on("click", function () {
         resetAlert = "";
         $("#lastGuess").html("Last word choice was: " + randomWord + "</h1>");
         document.querySelector("#resetAlert").innerHTML = resetAlert;
@@ -168,7 +179,7 @@ window.onload = function() {
     //function that writes the alphabet and creates buttons elements in html
     function createButtons() {
         for (i = 0; i < letters.length; i++) {
-            var letterBtn = $("<button class='btn-primary'>");
+            let letterBtn = $("<button class='btn-primary'>");
             letterBtn.html("<h1>" + letters[i] + "</h1>")
             letterBtn.addClass("letter-button", "letter", "letter-button-color");
             letterBtn.attr("data-letter", letters[i]);
@@ -179,7 +190,7 @@ window.onload = function() {
     }
 
     $('.letter-button').click(document.onkeyup)
-        // var indexes = getAllIndexes(randomWord, lastKey);
+    // let indexes = getAllIndexes(randomWord, lastKey);
 
     writeStats();
 };
